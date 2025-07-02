@@ -26,6 +26,7 @@ export class FormularioComponent implements OnInit {
   saidaCalculo: SaidaCalculo | null = null;
   rastreamento: any = {};
   mostrarLegenda = false;
+  
 
   constructor(
     private fb: FormBuilder,

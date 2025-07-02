@@ -1,0 +1,31 @@
+<div class="tela-sucesso" *ngIf="saidaCalculo">
+    <h2>🎯 Simulação Concluída</h2>
+  
+    <div class="painel-resultado">
+      <div class="card">
+        <p><mat-icon>savings</mat-icon> Economia estimada:</p>
+        <h3 class="grana">
+          R$ {{ saidaCalculo.economia | number: '1.0-0' }}
+        </h3>
+      </div>
+      <div class="card">
+        <p><mat-icon>trending_up</mat-icon> ROI estimado:</p>
+        <h3 class="roi">{{ saidaCalculo.roi }}%</h3>
+      </div>
+      <div class="card" *ngIf="saidaCalculo.receita">
+        <p><mat-icon>show_chart</mat-icon> Receita adicional:</p>
+        <h3 class="grana">
+          R$ {{ saidaCalculo.receita | number: '1.0-0' }}
+        </h3>
+      </div>
+      <div class="card" *ngIf="saidaCalculo.novasVendas">
+        <p><mat-icon>shopping_cart</mat-icon> Novas vendas:</p>
+        <h3 class="roi">{{ saidaCalculo.novasVendas }}</h3>
+      </div>
+    </div>
+  
+    <button mat-stroked-button color="primary" routerLink="/">
+      Refazer Simulação
+    </button>
+  </div>
+  

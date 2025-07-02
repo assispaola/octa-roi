@@ -229,3 +229,25 @@ mat-form-field {
   }
   
 }
+
+.tela-sucesso {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.tela-sucesso .painel-resultado {
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.tela-sucesso button {
+  margin-top: 20px;
+}
