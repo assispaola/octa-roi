@@ -24,6 +24,7 @@ export class FormularioComponent implements OnInit {
   formularioEmpresa!: FormGroup;
   formularioOperacao!: FormGroup;
   formularioVendas!: FormGroup;
+
   saidaCalculo: SaidaCalculo | null = null;
   rastreamento: any = {};
   mostrarLegenda = false;
@@ -38,6 +39,7 @@ export class FormularioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Monta os três formulários (etapas)
     this.formularioEmpresa = this.fb.group({
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -68,8 +70,10 @@ export class FormularioComponent implements OnInit {
       ],
     });
 
+    // Captura os dados de rastreamento (UTM, gclid etc.)
     this.rastreamento = this.rastreamentoService.obterParametrosDeCampanha();
 
+    // Armazena alguns dados parciais para uso posterior
     this.armazenamentoService.salvar('dadosRelatorio', {
       setor: this.formularioEmpresa.value.setor,
       repeticao: this.formularioOperacao.value.repeticao,
@@ -77,11 +81,14 @@ export class FormularioComponent implements OnInit {
     });
   }
 
+  // Avança para o próximo step do formulário
   irParaProximoStep(): void {
     this.stepper.next();
   }
 
+  // Finaliza o formulário e envia os dados
   finalizarFormulario(): void {
+    // Verifica se algum dos formulários está inválido
     if (
       this.formularioEmpresa.invalid ||
       this.formularioOperacao.invalid ||
@@ -90,13 +97,16 @@ export class FormularioComponent implements OnInit {
       return;
     }
 
+    // Junta os dados das etapas operacionais e comerciais
     const entrada: EntradaCalculo = {
       ...this.formularioOperacao.value,
       ...this.formularioVendas.value,
     };
 
+    // Realiza o cálculo com base nos dados preenchidos
     this.saidaCalculo = this.saidaCalculoService.calcular(entrada);
 
+    // Monta objeto completo do lead
     const lead: LeadCompleto = {
       ...this.formularioEmpresa.value,
       ...entrada,
@@ -105,25 +115,24 @@ export class FormularioComponent implements OnInit {
       dataEnvio: new Date().toISOString(),
     };
 
-    // ✅ Enviar lead para planilha via API (SheetDB ou outra)
+    // Envia os dados do lead via API
     this.leadService.enviar(lead).subscribe({
       next: () => {
-        console.log('✅ Lead enviado para a planilha com sucesso');
-        // Navega para tela de resultado somente após envio bem-sucedido
+        console.log('✅ Lead enviado com sucesso');
         this.router.navigate(['/resultado'], {
           state: this.saidaCalculo ?? {},
         });
       },
       error: (error) => {
-        console.error('❌ Falha ao enviar lead para planilha', error);
-        // Mesmo com erro, pode navegar se preferir:
+        console.error('❌ Erro ao enviar lead', error);
+        // Redireciona para o resultado, se necessário
         this.router.navigate(['/resultado'], {
           state: this.saidaCalculo ?? {},
         });
       },
     });
 
-    //  Redireciona para a rota com os dados do cálculo
-    this.router.navigate(['resultado'], { state: this.saidaCalculo ?? {} });
+    // Redireciona para página de resultado
+    this.router.navigate(['/resultado'], { state: this.saidaCalculo ?? {} });
   }
 }

@@ -18,65 +18,67 @@ export class ResultadoComponent {
   isGeneratingPdf = false;
 
   constructor(private router: Router) {
+    // Captura os dados vindos da navegação via router
     const navigation = this.router.getCurrentNavigation();
     this.saidaCalculo = navigation?.extras?.state;
 
+    // Evita acesso direto via /resultado sem dados
     if (!this.saidaCalculo) {
-      this.router.navigate(['/']); // evita acessar /resultado direto
+      this.router.navigate(['/']);
     }
   }
 
+  // Gera o PDF com os dados exibidos na tela
   async gerarPdf(): Promise<void> {
     if (this.isGeneratingPdf) return;
-
     this.isGeneratingPdf = true;
 
     try {
       const elemento = document.getElementById('resultados-container');
-
       if (!elemento) {
-        console.error('Elemento não encontrado');
+        console.error('Elemento para captura não encontrado');
         return;
       }
 
-      // Configurações otimizadas para html2canvas
+      // Captura o conteúdo da tela com qualidade aumentada
       const canvas = await html2canvas(elemento, {
         allowTaint: true,
         useCORS: true,
-        scale: 2, // Melhor qualidade
-        logging: false, // Remove logs desnecessários
-        backgroundColor: '#ffffff', // Fundo branco consistente
+        scale: 2,
+        backgroundColor: '#ffffff',
         removeContainer: true,
-        imageTimeout: 30000, // Timeout para imagens
+        imageTimeout: 30000,
       } as any);
 
-      const imgData = canvas.toDataURL('image/png', 0.95); // Compressão otimizada
+      const imgData = canvas.toDataURL('image/png', 0.95);
+
+      // Instância do PDF com dimensões A4
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4',
-        compress: true, // Compressão do PDF
+        compress: true,
       });
 
-      // Configurações de página
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
       const margin = 14;
       const contentWidth = pageWidth - margin * 2;
-      const headerHeight = 30; // Aumentado para dar mais espaço ao cabeçalho
+      const headerHeight = 30;
       const availableHeight = pageHeight - headerHeight - margin;
 
-      // Adiciona cabeçalho
+      // Adiciona cabeçalho à primeira página
       this.adicionarCabecalho(pdf, margin);
 
-      // Calcula dimensões da imagem
+      // Calcula altura da imagem proporcional ao tamanho disponível
       const imgWidth = contentWidth;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
       let yPosition = headerHeight;
       let remainingHeight = imgHeight;
+      let sourceY = 0;
 
-      // Primeira página
+      // Adiciona primeira parte da imagem
       const heightToShow = Math.min(remainingHeight, availableHeight);
       pdf.addImage(
         imgData,
@@ -86,25 +88,24 @@ export class ResultadoComponent {
         imgWidth,
         heightToShow,
         undefined,
-        'FAST' // Compressão rápida
+        'FAST'
       );
-
       remainingHeight -= heightToShow;
-      let sourceY = heightToShow;
+      sourceY += heightToShow;
 
-      // Páginas adicionais se necessário
+      // Gera páginas adicionais se o conteúdo for maior que 1 página
       while (remainingHeight > 0) {
         pdf.addPage();
         this.adicionarCabecalho(pdf, margin);
 
         const heightToShow = Math.min(remainingHeight, availableHeight);
+        const sourceHeight = (heightToShow * canvas.width) / imgWidth;
 
-        // Cria um canvas temporário para a parte restante
+        // Cria novo canvas com a próxima "fatia"
         const tempCanvas = document.createElement('canvas');
         const tempCtx = tempCanvas.getContext('2d');
 
         if (tempCtx) {
-          const sourceHeight = (heightToShow * canvas.width) / imgWidth;
           tempCanvas.width = canvas.width;
           tempCanvas.height = sourceHeight;
 
@@ -135,17 +136,17 @@ export class ResultadoComponent {
         sourceY += heightToShow;
       }
 
-      // Salva o arquivo
+      // Salva o arquivo com nome automático
       const nomeArquivo = this.gerarNomeArquivo();
       pdf.save(nomeArquivo);
     } catch (error) {
       console.error('Erro ao gerar PDF:', error);
-      // Aqui você pode adicionar uma notificação de erro para o usuário
     } finally {
       this.isGeneratingPdf = false;
     }
   }
 
+  // Adiciona cabeçalho padrão no PDF
   private adicionarCabecalho(pdf: jsPDF, margin: number): void {
     const dataAtual = new Date().toLocaleDateString('pt-BR', {
       year: 'numeric',
@@ -156,25 +157,24 @@ export class ResultadoComponent {
     });
 
     const pageWidth = pdf.internal.pageSize.getWidth();
+    const textoData = `Gerado em: ${dataAtual}`;
+    const larguraTextoData = pdf.getTextWidth(textoData);
 
-    // Título
     pdf.setFontSize(14);
     pdf.setTextColor(60, 60, 60);
     pdf.text('Relatório OCTA ROI', margin, margin + 8);
 
-    // Data - posicionada à direita
     pdf.setFontSize(9);
     pdf.setTextColor(120, 120, 120);
-    const textoData = `Gerado em: ${dataAtual}`;
-    const larguraTextoData = pdf.getTextWidth(textoData);
     pdf.text(textoData, pageWidth - margin - larguraTextoData, margin + 8);
 
-    // Linha separadora com mais espaço
+    // Linha de separação
     pdf.setDrawColor(200, 200, 200);
     pdf.setLineWidth(0.3);
     pdf.line(margin, margin + 14, pageWidth - margin, margin + 14);
   }
 
+  // Gera nome do arquivo baseado na data atual
   private gerarNomeArquivo(): string {
     const dataAtual = new Date();
     const ano = dataAtual.getFullYear();
