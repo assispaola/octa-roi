@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { FormularioComponent } from './components/formulario/formulario.component';
+import { FormularioComponent } from './pages/formulario/formulario.component';
 
 export const routes: Routes = [
   {
@@ -9,7 +9,7 @@ export const routes: Routes = [
   {
     path: 'resultado',
     loadComponent: () =>
-      import('./components/resultado/resultado.component').then(
+      import('./pages/resultado/resultado.component').then(
         (m) => m.ResultadoComponent
       ),
   },
@@ -20,7 +20,7 @@ export const routes: Routes = [
   {
     path: 'relatorio',
     loadComponent: () =>
-      import('./components/relatorio/relatorio.component').then(
+      import('./pages/relatorio/relatorio.component').then(
         (m) => m.RelatorioComponent
       ),
   },

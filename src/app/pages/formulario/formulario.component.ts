@@ -1,17 +1,15 @@
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { SharedUiModule } from '../../shared/shared-ui.module';
-import { RastreamentoService } from '../../services/rastreamento.service';
-import { SaidaCalculoService } from '../../services/saida-calculo.service';
+import { RastreamentoService } from '../../core/services/rastreamento.service';
+import { SaidaCalculoService } from '../../core/services/saida-calculo.service';
 import { EntradaCalculo } from '../../models/entradaCalculo';
 import { LeadCompleto } from '../../models/leadCompleto';
 import { SaidaCalculo } from '../../models/saidaCalculo';
 import { Router } from '@angular/router';
-import { ArmazenamentoService } from '../../services/armazenamento.service';
-import { LeadService } from '../../services/lead.service';
-
+import { ArmazenamentoService } from '../../core/services/armazenamento.service';
+import { LeadService } from '../../core/services/lead.service';
 
 @Component({
   selector: 'app-formulario',

@@ -2,12 +2,11 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LeadCompleto } from '../models/leadCompleto';
-
+import { LeadCompleto } from '../../models/leadCompleto';
 
 @Injectable({ providedIn: 'root' })
 export class LeadService {
-  private urlApi = 'https://sheetdb.io/api/v1/ihvzo74bxj7va'; 
+  private urlApi = 'https://sheetdb.io/api/v1/ihvzo74bxj7va';
 
   constructor(private http: HttpClient) {}
 
