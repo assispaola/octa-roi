@@ -1,22 +1,93 @@
-// src/app/servicos/armazenamento.service.ts
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class ArmazenamentoService {
-  salvar<T>(chave: string, valor: T): void {
-    localStorage.setItem(chave, JSON.stringify(valor));
+  private isBrowser: boolean;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
-  recuperar<T>(chave: string): T | null {
-    const dados = localStorage.getItem(chave);
-    return dados ? JSON.parse(dados) : null;
+  salvar(chave: string, valor: any): void {
+    if (this.isBrowser) {
+      try {
+        const valorString = JSON.stringify(valor);
+        localStorage.setItem(chave, valorString);
+      } catch (error) {
+        console.error('Erro ao salvar no localStorage:', error);
+      }
+    }
+  }
+
+  obter<T>(chave: string): T | null {
+    if (this.isBrowser) {
+      try {
+        const valor = localStorage.getItem(chave);
+        return valor ? JSON.parse(valor) : null;
+      } catch (error) {
+        console.error('Erro ao obter do localStorage:', error);
+        return null;
+      }
+    }
+    return null;
   }
 
   remover(chave: string): void {
-    localStorage.removeItem(chave);
+    if (this.isBrowser) {
+      try {
+        localStorage.removeItem(chave);
+      } catch (error) {
+        console.error('Erro ao remover do localStorage:', error);
+      }
+    }
   }
 
-  limparTudo(): void {
-    localStorage.clear();
+  limpar(): void {
+    if (this.isBrowser) {
+      try {
+        localStorage.clear();
+      } catch (error) {
+        console.error('Erro ao limpar localStorage:', error);
+      }
+    }
+  }
+
+  existe(chave: string): boolean {
+    if (this.isBrowser) {
+      try {
+        return localStorage.getItem(chave) !== null;
+      } catch (error) {
+        console.error('Erro ao verificar existência no localStorage:', error);
+        return false;
+      }
+    }
+    return false;
+  }
+
+  obterChaves(): string[] {
+    if (this.isBrowser) {
+      try {
+        return Object.keys(localStorage);
+      } catch (error) {
+        console.error('Erro ao obter chaves do localStorage:', error);
+        return [];
+      }
+    }
+    return [];
+  }
+
+  tamanho(): number {
+    if (this.isBrowser) {
+      try {
+        return localStorage.length;
+      } catch (error) {
+        console.error('Erro ao obter tamanho do localStorage:', error);
+        return 0;
+      }
+    }
+    return 0;
   }
 }
