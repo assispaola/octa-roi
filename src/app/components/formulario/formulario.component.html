@@ -1,1 +1,242 @@
-<p>formulario works!</p>
+<header class="topbar">
+  <img src="assets/logo-octadesk.svg" alt="Logo Octadesk" class="logo-nav" />
+</header>
+
+<div class="pagina-formulario">
+  <section class="formulario">
+    <div class="formulario-layout">
+      <!-- Coluna esquerda: conteúdo educativo -->
+      <aside class="intro">
+        <img
+          src="../../../assets/logo-octa-roi (1).svg"
+          alt="Logo OctaROI"
+          class="logo-octa"
+        />
+        <p>
+          Calcule o ROI com atendimento automatizado e veja como sua empresa
+          pode economizar e crescer.
+        </p>
+
+        <h3 class="subtitulo">Tenha resultados como:</h3>
+        <ul class="checklist">
+          <li>
+            <mat-icon class="icon">forum</mat-icon> Volume mensal de
+            atendimentos
+          </li>
+          <li>
+            <mat-icon class="icon">autorenew</mat-icon> % de dúvidas repetidas
+          </li>
+          <li>
+            <mat-icon class="icon">attach_money</mat-icon> Salário médio dos
+            atendentes
+          </li>
+          <li>
+            <mat-icon class="icon">groups</mat-icon> Nº de funcionários e
+            atendentes
+          </li>
+          <li>
+            <mat-icon class="icon">insights</mat-icon> Ticket médio e nº de
+            vendas
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Coluna direita: formulário stepper -->
+      <div class="formulario-conteudo">
+        <mat-vertical-stepper [linear]="true" #stepper>
+          <!-- Etapa 1 -->
+          <mat-step [stepControl]="formularioEmpresa">
+            <form [formGroup]="formularioEmpresa">
+              <ng-template matStepLabel>Informações da empresa</ng-template>
+
+              <div class="campo-duplo">
+                <mat-form-field appearance="outline" class="campo">
+                  <mat-label>Nome</mat-label>
+                  <input matInput formControlName="nome" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="campo">
+                  <mat-label>E-mail corporativo</mat-label>
+                  <input matInput formControlName="email" type="email" />
+                </mat-form-field>
+              </div>
+
+              <div class="campo-duplo">
+                <mat-form-field appearance="outline" class="campo">
+                  <mat-label>Telefone</mat-label>
+                  <input matInput formControlName="telefone" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="campo">
+                  <mat-label>URL do site</mat-label>
+                  <input matInput formControlName="url" />
+                </mat-form-field>
+              </div>
+              <div class="campo-duplo">
+                <mat-form-field appearance="outline" class="campo">
+                  <mat-label>Setor</mat-label>
+                  <mat-select formControlName="setor">
+                    <mat-option value="comercio">Comércio</mat-option>
+                    <mat-option value="educacao">Educação</mat-option>
+                    <mat-option value="tecnologia">Tecnologia</mat-option>
+                    <mat-option value="outros">Outros</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="campo">
+                  <mat-label>Número de funcionários</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    formControlName="funcionarios"
+                  />
+                </mat-form-field>
+              </div>
+
+              <div class="botoes">
+                <button
+                  mat-flat-button
+                  color="primary"
+                  matStepperNext
+                  [disabled]="formularioEmpresa.invalid"
+                >
+                  Próximo
+                </button>
+              </div>
+            </form>
+          </mat-step>
+
+          <!-- Etapa 2 -->
+          <mat-step [stepControl]="formularioOperacao">
+            <form [formGroup]="formularioOperacao">
+              <ng-template matStepLabel>Diagnóstico de Atendimento</ng-template>
+
+              <div class="campo-duplo">
+                <mat-form-field appearance="outline" class="campo">
+                  <mat-label>Número de Atendentes</mat-label>
+                  <input matInput type="number" formControlName="atendentes" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="campo">
+                  <mat-label>% de dúvidas repetidas</mat-label>
+                  <input matInput type="number" formControlName="repeticao" />
+                </mat-form-field>
+              </div>
+
+              <mat-form-field appearance="outline" class="campo">
+                <mat-label>Salário mensal médio estimado (R$)</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  formControlName="salarioEstimado"
+                />
+              </mat-form-field>
+
+              <div class="botoes">
+                <button mat-button matStepperPrevious>Voltar</button>
+                <button
+                  mat-flat-button
+                  color="primary"
+                  matStepperNext
+                  [disabled]="formularioOperacao.invalid"
+                >
+                  Próximo
+                </button>
+              </div>
+            </form>
+          </mat-step>
+
+          <!-- Etapa 3 -->
+          <mat-step [stepControl]="formularioVendas">
+            <form [formGroup]="formularioVendas">
+              <ng-template matStepLabel>Diagnóstico de Vendas</ng-template>
+
+              <div class="campo-duplo">
+                <mat-form-field appearance="outline" class="campo">
+                  <mat-label>Visitas mensais no site</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    formControlName="visitasMensais"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="campo">
+                  <mat-label>Interessados mensais (leads)</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    formControlName="interessadosMensais"
+                  />
+                </mat-form-field>
+              </div>
+
+              <div class="campo-duplo">
+                <mat-form-field appearance="outline" class="campo">
+                  <mat-label>Oportunidades qualificadas</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    formControlName="oportunidades"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="campo">
+                  <mat-label>Vendas mensais</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    formControlName="vendasMensais"
+                  />
+                </mat-form-field>
+              </div>
+
+              <mat-form-field appearance="outline" class="campo">
+                <mat-label>Ticket médio (R$)</mat-label>
+                <input matInput type="number" formControlName="ticketMedio" />
+              </mat-form-field>
+
+              <div class="botoes">
+                <button mat-button matStepperPrevious>Voltar</button>
+                <button
+                  mat-flat-button
+                  color="accent"
+                  type="button"
+                  (click)="finalizarFormulario()"
+                  [disabled]="formularioVendas.invalid"
+                >
+                  Calcular ROI
+                </button>
+              </div>
+            </form>
+          </mat-step>
+        </mat-vertical-stepper>
+
+        <!-- Resultado do Cálculo -->
+        <div *ngIf="saidaCalculo" class="resultado tela-centralizada">
+          <h2>🎯 Simulação Concluída</h2>
+          <div class="painel-resultado">
+            <div class="card">
+              <p><mat-icon>savings</mat-icon> Economia estimada:</p>
+              <h3 class="grana">
+                R$ {{ saidaCalculo.economia | number : "1.0-0" }}
+              </h3>
+            </div>
+            <div class="card">
+              <p><mat-icon>trending_up</mat-icon> ROI estimado:</p>
+              <h3 class="roi">{{ saidaCalculo.roi }}%</h3>
+            </div>
+            <div class="card" *ngIf="saidaCalculo.receita">
+              <p><mat-icon>show_chart</mat-icon> Receita adicional:</p>
+              <h3 class="grana">
+                R$ {{ saidaCalculo.receita | number : "1.0-0" }}
+              </h3>
+            </div>
+            <div class="card" *ngIf="saidaCalculo.novasVendas">
+              <p><mat-icon>shopping_cart</mat-icon> Novas vendas:</p>
+              <h3 class="roi">{{ saidaCalculo.novasVendas }}</h3>
+            </div>
+          </div>
+          <button mat-stroked-button color="primary" routerLink="/dashboard">
+            Acessar Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

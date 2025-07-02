@@ -1,0 +1,31 @@
+<div class="dashboard">
+    <h2>📊 Resumo de Simulações</h2>
+  
+    <div class="cards">
+      <mat-card class="card animate">
+        <h3>{{ estatisticas.totalSimulacoes }}</h3>
+        <p>Empresas já simularam</p>
+      </mat-card>
+  
+      <mat-card class="card animate">
+        <h3>{{ estatisticas.mediaROI }}%</h3>
+        <p>ROI médio estimado</p>
+      </mat-card>
+  
+      <mat-card class="card animate">
+        <h3>R$ {{ estatisticas.economiaTotal | number:'1.0-0' }}</h3>
+        <p>Economia total simulada</p>
+      </mat-card>
+    </div>
+  
+    <h3>Distribuição por setor</h3>
+    <ngx-charts-pie-chart
+      [results]="estatisticas.simulacoesPorSetor"
+      [view]="[500, 300]"
+      [gradient]="true"
+      [doughnut]="true"
+      [legend]="true"
+      [labels]="true">
+    </ngx-charts-pie-chart>
+  </div>
+  
