@@ -1,0 +1,74 @@
+<!-- Container principal da tela de resultados -->
+<div id="resultados-container">
+  <div class="tela-sucesso" *ngIf="saidaCalculo">
+
+    <!-- Título da seção com ícone -->
+    <h1>
+      <mat-icon>thumb_up</mat-icon> Resultados
+    </h1>
+
+    <!-- Área que agrupa os cards de resultado -->
+    <div class="painel-resultado">
+
+      <!-- Card com o valor estimado de economia -->
+      <div class="card">
+        <p><mat-icon>savings</mat-icon> Economia estimada:</p>
+        <h3 class="grana">
+          R$ {{ saidaCalculo.economia | number: '1.0-0' }}
+        </h3>
+      </div>
+
+      <!-- Card com o ROI calculado -->
+      <div class="card">
+        <p><mat-icon>trending_up</mat-icon> ROI estimado:</p>
+        <h3 class="roi">
+          {{ saidaCalculo.roi }}%
+        </h3>
+      </div>
+
+      <!-- Card com receita adicional, se houver -->
+      <div class="card" *ngIf="saidaCalculo.receita">
+        <p><mat-icon>show_chart</mat-icon> Receita adicional:</p>
+        <h3 class="grana">
+          R$ {{ saidaCalculo.receita | number: '1.0-0' }}
+        </h3>
+      </div>
+
+      <!-- Card com novas vendas, se houver -->
+      <div class="card" *ngIf="saidaCalculo.novasVendas">
+        <p><mat-icon>shopping_cart</mat-icon> Novas vendas:</p>
+        <h3 class="roi">
+          {{ saidaCalculo.novasVendas }}
+        </h3>
+      </div>
+
+    </div>
+
+    <!-- Botões de ação: refazer ou baixar -->
+    <div class="botoes">
+      
+      <!-- Refazer o cálculo -->
+      <button
+        mat-stroked-button
+        color="primary"
+        class="custom-btn-refazer"
+        routerLink="/"
+      >
+        Refazer Cálculo
+      </button>
+
+      <!-- Gera o PDF com os dados do resultado -->
+      <button
+        mat-stroked-button
+        color="primary"
+        class="custom-purple-btn"
+        (click)="gerarPdf()"
+      >
+        <mat-icon>download</mat-icon>
+        Baixar Resultado
+      </button>
+
+    </div>
+
+  </div>
+</div>

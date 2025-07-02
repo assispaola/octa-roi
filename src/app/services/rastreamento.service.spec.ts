@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { RastreamentoService } from '../core/services/rastreamento.service';
 
-import { RastreamentoService } from './rastreamento.service';
 
 describe('RastreamentoService', () => {
   let service: RastreamentoService;
@@ -13,4 +13,6 @@ describe('RastreamentoService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+
 });

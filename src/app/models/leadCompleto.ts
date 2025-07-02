@@ -1,6 +1,5 @@
-import { EntradaCalculo } from "./entradaCalculo";
-import { SaidaCalculo } from "./saidaCalculo";
-
+import { EntradaCalculo } from './entradaCalculo';
+import { SaidaCalculo } from './saidaCalculo';
 
 export interface LeadCompleto extends EntradaCalculo, SaidaCalculo {
   nome: string;

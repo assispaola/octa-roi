@@ -1,0 +1,81 @@
+
+// TELAS DE RESULTADO / SUCESSO
+
+.tela-sucesso {
+  width: 100%;
+  max-width: 85%;
+  margin: 30px auto;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  .painel-resultado {
+    margin-top: 20px;
+  }
+
+  button {
+    margin-top: 20px;
+  }
+}
+
+
+// PAINEL DE RESULTADOS COM CARDS
+
+.painel-resultado {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+
+  .card {
+    background: #f4f9ff;
+    padding: 24px;
+    border-radius: 14px;
+    min-width: 260px;
+    box-shadow: 0 4px 12px rgba(0, 120, 255, 0.08);
+  }
+}
+
+
+// BOTÕES DE AÇÃO NA TELA DE RESULTADO
+
+.botoes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+
+  button {
+    min-width: 120px;
+    height: 38px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Urbanist', sans-serif;
+    border-radius: 8px;
+
+    &.custom-purple-btn {
+      background: #7b15c1 !important;
+      color: white !important;
+      border: none !important;
+      padding: 12px 24px !important;
+
+      .mat-icon {
+        margin-right: 8px;
+        color: white !important;
+      }
+    }
+  }
+
+  button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
