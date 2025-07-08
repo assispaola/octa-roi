@@ -1,0 +1,178 @@
+// TOPO - NAVBAR
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #ffffff;
+    padding: 16px 32px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+
+    .logo-nav {
+        height: 32px;
+    }
+}
+
+
+// CONTAINER PRINCIPAL
+
+.pagina-formulario {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px 80px;
+    overflow-y: auto;
+    box-sizing: border-box;
+
+    .layout {
+        max-width: 100%;
+        padding: 0 32px;
+        margin: 10px auto;
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+
+        @media (max-width: 900px) {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}
+
+
+//FORMULÁRIO CENTRAL
+
+.formulario {
+    width: 100%;
+    max-width: 85%;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: visible;
+
+    .formulario-layout {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        gap: 4rem;
+
+        @media (max-width: 900px) {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    .formulario-conteudo {
+        flex: 1 1 60%;
+        max-width: 800px;
+
+        mat-form-field {
+            width: 100%;
+
+            .mat-form-field-infix {
+                min-height: 56px;
+            }
+        }
+
+        .campo-duplo {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+
+            .campo {
+                flex: 1;
+            }
+        }
+
+
+        .botoes {
+            margin-top: 28px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+
+            button {
+                min-width: 120px;
+                height: 38px;
+                font-size: 14px !important;
+                font-weight: 600;
+                font-family: 'Urbanist', sans-serif !important;
+                color: white;
+                border-radius: 8px;
+            }
+
+            button[disabled] {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+        }
+
+
+    }
+
+    .intro {
+        flex: 1 1 40%;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .logo-octa,
+        img {
+            width: 220px;
+            margin-bottom: 1rem;
+            margin-top: 8px;
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .subtitulo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #202737;
+            margin-top: 2rem;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #444;
+            margin-top: 0;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+
+            li {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 15px;
+                font-size: 1rem;
+                color: #1a1a1a;
+
+                .icon {
+                    font-size: 1.2rem;
+                    flex-shrink: 0;
+                }
+            }
+        }
+    }
+
+    .next .next button {
+        color: white !important;
+    }
+
+    .back button {
+        background-color: rgb(83, 83, 83);
+    }
+
+
+}
+
+
