@@ -167,5 +167,3 @@ Acesse em `http://localhost:4200`
 **Paola Santos de Assis**\
 Desenvolvedora Front-End Angular
 
- aqui prints ou link para vídeo demonstrativo / deploy hospedado (opcional)
-
